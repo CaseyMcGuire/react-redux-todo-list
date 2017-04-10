@@ -14,21 +14,16 @@
  * No API calls. No mutations. Just a calculation.
  */
 
-import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FITLER, VisibilityFilters } from './actions';
+import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions';
 const { SHOW_ALL } = VisibilityFilters;
 import { combineReducers } from 'redux';
-
-const initialState = {
-  visibilityFilter: VisibilityFilters.SHOW_ALL,
-  todos: []
-};
 
 /**
  * Creating reducer functions that know how to update a slice of the app state is called 
  * 'reducer composition' and it's a fundamental pattern of building Redux apps.
  * 
  * Note that each of these reducers is managing its own part of the global state. The state 
- * paramter is differnet for every reducer, and corresponds to the part of the state it manages.
+ * parameter is different for every reducer, and corresponds to the part of the state it manages.
  */
 
 function todos(state = [], action) {
@@ -37,6 +32,7 @@ function todos(state = [], action) {
       return [
        ...state,
       {
+        id: action.id,
         text: action.text,
         completed: false
       }
@@ -57,7 +53,7 @@ function todos(state = [], action) {
 
 function visibilityFilter(state = SHOW_ALL, action) {
   switch(action.type) {
-    case SET_VISIBILITY_FITLER:
+    case SET_VISIBILITY_FILTER:
       return action.filter;
     default: 
       return state;  
